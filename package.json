@@ -1,0 +1,21 @@
+{
+  "name": "backend-poke-markt",
+  "version": "1.0.0",
+  "description": "Backend for PokeMarkt project.",
+  "main": "index.js",
+  "private" : true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PokeMarkt/Backend.git"
+  },
+  "author": "Joseff",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PokeMarkt/Backend/issues"
+  },
+  "homepage": "https://github.com/PokeMarkt/Backend#readme"
+}
