@@ -3,7 +3,7 @@
 module.exports = {
 
     database: {
-        database: '',
+        database: 'a',
         username: '',
         password: '',
         host: '',
