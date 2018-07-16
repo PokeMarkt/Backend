@@ -18,9 +18,23 @@ module.exports = function setupPokemon(PokemonModel) {
         })
     }
 
+    function create(pokemon) {
+        return PokemonModel.create(pokemon)
+    }
+
+    function remove(id) {
+        return PokemonModel.destroy({
+            where: {
+                id
+            }
+        })
+    }
+
     return {
         findAll,
         findById,
-        findByPokedexNum
+        findByPokedexNum,
+        create,
+        remove
     }
 }

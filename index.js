@@ -13,6 +13,7 @@ app.use(express.json())
 app.use('/', router);
 
 require('./routes/pokemons')(router)
+//require('./routes/posts')(router)
 
 // Starting the server
 app.listen(80, function() {

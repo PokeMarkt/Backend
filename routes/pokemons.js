@@ -5,7 +5,9 @@ const db = require('../bbdd/index')(config.database)
 
 module.exports = function(router) {
 
-    router.get('/pokemons', function(req, res) {    
+    router.get('/pokemons', function (req, res) {    
+
+        req.query
 
         db.pokemon.findAll()
             .then((results => {
@@ -13,7 +15,15 @@ module.exports = function(router) {
             }));
     });
 
-    router.get('/pokemon/:numPokedex', function(req, res) {    
+    router.get('/pokemon/:id', function(req, res) {    
+
+        db.pokemon.findById(req.params.id)
+            .then(result => {
+                res.json(result)
+            })
+    });
+
+    router.get('/pokedex/:numPokedex', function(req, res) {    
 
         db.pokemon.findByPokedexNum(req.params.numPokedex)
             .then(result => {
@@ -23,6 +33,21 @@ module.exports = function(router) {
 
     router.post('/pokemon', (req, res) => {
         const pokemon = req.body;
-        // TODO
+        db.pokemon.create(pokemon)
+            .then(res => {
+                console.log(res)
+            })
     });
+
+    router.delete('/pokemon/:id', (req, res) => {
+        db.pokemon.remove(req.params.id)
+            .then(result => {
+                console.log('deleted')
+            })
+            .catch(result => {
+                console.log('no deleted')
+            })
+
+    })
+
 }

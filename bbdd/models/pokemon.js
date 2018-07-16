@@ -23,6 +23,10 @@ module.exports = function setupPokemonModel(config) {
         type2: {
             type: Sequelize.STRING,
             allowNull: true
+        },
+        form: {
+            type: Sequelize.STRING,
+            allowNull: false
         }
     });
 };
