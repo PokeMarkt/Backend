@@ -8,12 +8,14 @@ const router = express.Router();
 
 const config = require('./config')
 
+// Configs of Express
 app.use(morgan('dev'))
 app.use(express.json())
 app.use('/', router);
 
+// Require the diferent files of routes (of diferent entities)
 require('./routes/pokemons')(router)
-//require('./routes/posts')(router)
+require('./routes/posts')(router)
 
 // Starting the server
 app.listen(80, function() {

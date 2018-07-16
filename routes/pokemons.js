@@ -5,9 +5,7 @@ const db = require('../bbdd/index')(config.database)
 
 module.exports = function(router) {
 
-    router.get('/pokemons', function (req, res) {    
-
-        req.query
+    router.get('/pokemons', function (req, res) {
 
         db.pokemon.findAll()
             .then((results => {
@@ -38,6 +36,13 @@ module.exports = function(router) {
                 console.log(res)
             })
     });
+
+    router.put('/pokemon/:id', (req, res) => {
+        
+        const pokemon = req.body;
+
+        // TODO update
+    })
 
     router.delete('/pokemon/:id', (req, res) => {
         db.pokemon.remove(req.params.id)
