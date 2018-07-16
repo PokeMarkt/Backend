@@ -6,6 +6,8 @@ const express = require('express')
 const app = express();
 const router = express.Router();
 
+const config = require('./config')
+
 app.use(morgan('dev'))
 app.use(express.json())
 app.use('/', router);
