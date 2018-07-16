@@ -1,9 +1,6 @@
 'use strict'
 
-const config = require('../config')
-const db = require('../bbdd/index')(config.database)
-
-module.exports = function(router) {
+module.exports = function(router, db) {
 
     router.get('/posts', function (req, res) {    
 
