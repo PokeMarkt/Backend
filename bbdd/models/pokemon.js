@@ -25,4 +25,4 @@ module.exports = function setupPokemonModel(config) {
             allowNull: true
         }
     });
-}
+};

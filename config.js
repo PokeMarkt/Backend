@@ -3,10 +3,10 @@
 module.exports = {
 
     database: {
-        database: 'a16josortmar_pok',
-        username: 'a16josortmar_jq',
-        password: 'Mcea128zkW',
-        host: 'labs.iam.cat',
+        database: '',
+        username: '',
+        password: '',
+        host: '',
         dialect: 'mysql',
         operatorsAliases: false,
         recreate: false

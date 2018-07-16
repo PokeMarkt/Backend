@@ -10,7 +10,7 @@ module.exports = function(router) {
         db.pokemon.findAll()
             .then((results => {
                 res.json(results)
-            }))
+            }));
     });
 
     router.get('/pokemon/:numPokedex', function(req, res) {    
