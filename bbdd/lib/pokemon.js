@@ -6,7 +6,21 @@ module.exports = function setupPokemon(PokemonModel) {
         return PokemonModel.findAll()
     }
 
+    function findById(id) {
+        return PokemonModel.findById(id)
+    }
+
+    function findByPokedexNum(numPokedex) {
+        return PokemonModel.findOne({
+            where: {
+                numPokedex: numPokedex
+            }
+        })
+    }
+
     return {
-        findAll
+        findAll,
+        findById,
+        findByPokedexNum
     }
 }

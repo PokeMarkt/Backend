@@ -3,8 +3,8 @@
 module.exports = {
 
     database: {
-        database: 'a',
-        username: 'aaa',
+        database: '',
+        username: '',
         password: '',
         host: '',
         dialect: 'mysql',
