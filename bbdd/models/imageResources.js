@@ -8,7 +8,7 @@ module.exports = function setupPokemonModel(config) {
 
     const sequelize = setupDatabase(config)
      
-    return sequelize.define('session', {
+    return sequelize.define('imageResource', {
         path: {
             type: Sequelize.STRING,
             allowNull: false

@@ -20,6 +20,10 @@ module.exports = function setupPokemonModel(config) {
         price: {
             type: Sequelize.FLOAT,
             allowNull: false
+        },
+        dateClosed: {
+            type: Sequelize.DATE,
+            allowNull: true
         }
     });
 } 

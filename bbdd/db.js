@@ -13,6 +13,7 @@ const setupDemandOffer  = require('./models/demand')
 const setupPokemonModel = require('./models/pokemon')
 const setupImageResourcesModel = require('./models/imageResources')
 
+// import objects with queries
 const setupPokemon = require('./lib/pokemon')
 
 module.exports = function(config) {
@@ -20,21 +21,30 @@ module.exports = function(config) {
     const sequelize = setupDatabase(config)
 
     // Models
-    const sessionModel = setupSessionModel(config)
-    const userModel = setupUserModel(config)
-    const likeModel = setupLikeModel(config)
-    const viewModel = setupViewModel(config)
-    const postModel = setupPostModel(config)
-    const offerModel = setupOfferModel(config)
-    const demandModel = setupDemandOffer(config)
-    const pokemonModel = setupPokemonModel(config)
+    const sessionModel  = setupSessionModel(config)
+    const userModel     = setupUserModel(config)
+    const likeModel     = setupLikeModel(config)
+    const viewModel     = setupViewModel(config)
+    const postModel     = setupPostModel(config)
+    const offerModel    = setupOfferModel(config)
+    const demandModel   = setupDemandOffer(config)
+    const pokemonModel  = setupPokemonModel(config)
     const imageResourcesModel = setupImageResourcesModel(config)
 
     // Relations
     userModel.hasMany(sessionModel)
-    sessionModel.belongsTo(userModel)
-    //userModel.hasOne
-        
+    userModel.belongsTo(imageResourcesModel)
+    userModel.hasMany(likeModel)
+    postModel.hasMany(likeModel)
+    userModel.hasMany(viewModel)
+    postModel.hasMany(viewModel)
+    postModel.belongsTo(userModel, { as : 'userPoster' })
+    postModel.belongsTo(userModel, { as : 'userCloser' })
+    postModel.hasMany(offerModel)
+    postModel.hasMany(demandModel)
+    pokemonModel.hasMany(offerModel)
+    pokemonModel.hasMany(demandModel)
+    pokemonModel.belongsTo(imageResourcesModel)
 
     // Auth in bbdd
     sequelize.authenticate()
