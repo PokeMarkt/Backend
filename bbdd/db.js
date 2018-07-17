@@ -9,12 +9,20 @@ const setupLikeModel    = require('./models/like')
 const setupViewModel    = require('./models/view')
 const setupPostModel    = require('./models/post')
 const setupOfferModel   = require('./models/offer')
-const setupDemandOffer  = require('./models/demand')
+const setupDemandModel  = require('./models/demand')
 const setupPokemonModel = require('./models/pokemon')
 const setupImageResourcesModel = require('./models/imageResources')
 
 // import objects with queries
-const setupPokemon = require('./lib/pokemon')
+const setupSession  = require('./lib/session')
+const setupUser     = require('./lib/user')
+const setupLike     = require('./lib/user')
+const setupView     = require('./lib/view')
+const setupPost     = require('./lib/post')
+const setupOffer    = require('./lib/offer')
+const setupDemand   = require('./lib/demand')
+const setupPokemon  = require('./lib/pokemon')
+const setupImageResource = require('./lib/imageResources')
 
 module.exports = function(config) {
 
@@ -27,7 +35,7 @@ module.exports = function(config) {
     const viewModel     = setupViewModel(config)
     const postModel     = setupPostModel(config)
     const offerModel    = setupOfferModel(config)
-    const demandModel   = setupDemandOffer(config)
+    const demandModel   = setupDemandModel(config)
     const pokemonModel  = setupPokemonModel(config)
     const imageResourcesModel = setupImageResourcesModel(config)
 
@@ -59,9 +67,25 @@ module.exports = function(config) {
         })
 
     // Get the objects with the queries 
+    const session = setupSession(sessionModel)
+    const user = setupUser(userModel)
+    const like = setupLike(likeModel)
+    const view = setupView(viewModel)
+    const post = setupPost(postModel)
+    const offer = setupOffer(offerModel)
+    const demand = setupDemand(demandModel)
     const pokemon = setupPokemon(pokemonModel);
+    const imageResource = setupImageResource(imageResourcesModel)
 
     return {
-        pokemon
+        session, 
+        user,
+        like, 
+        view,
+        post, 
+        offer,
+        demand,
+        pokemon,
+        imageResource
     }
 }

@@ -32,6 +32,10 @@ module.exports = function setupPokemonModel(config) {
         enabled: {
             type: Sequelize.BOOLEAN,
             allowNull: false
+        },
+        permissionLevel: {
+            type: Sequelize.INTEGER,
+            allowNull: false
         }
     });
 } 
