@@ -1,5 +1,7 @@
 'use strict'
 
+const chalk = require('chalk') // colored world
+
 const morgan = require('morgan')
 const express = require('express')
 
@@ -19,6 +21,6 @@ require('./routes/pokemons')(router, db)
 require('./routes/posts')(router, db)
 
 // Starting the server
-app.listen(80, function() {
-    console.log('Server running on port 80')
+app.listen(config.server.port, function() {
+    console.log(chalk.green('Server running on port ' + config.server.port) )
 })

@@ -1,5 +1,7 @@
 'use strict'
 
+const chalk = require('chalk')
+
 const setupDatabase = require('./singletonSequelize')
 
 // Import models
@@ -57,13 +59,14 @@ module.exports = function(config) {
     // Auth in bbdd
     sequelize.authenticate()
         .then(() => {
-            console.log('Sequelize authenticated')
+            console.log(`${chalk.green('SEQUELIZE AUTHENTICATED!')}`)
             if (config.recreate) {
                 sequelize.sync({ force: true })
             }
         })
         .catch(() => {
-            console.log('Sequelize NOT authenticated')
+            console.log(`${chalk.red('SEQUELIZE NOT AUTHENTICATED!')}`)
+            process.exit(1)
         })
 
     // Get the objects with the queries 

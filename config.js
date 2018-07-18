@@ -10,6 +10,9 @@ module.exports = {
         dialect: 'mysql',
         operatorsAliases: false,
         recreate: true
+    },
+    server: {
+        port: 3000
     }
 
 }
