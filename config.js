@@ -12,7 +12,10 @@ module.exports = {
         recreate: true
     },
     server: {
-        port: 3000
+        port: 80
+    }, 
+    paths: {
+        pokemonImagesFolder: '\\resources\\pokemonImages\\'
     }
 
 }

@@ -12,8 +12,8 @@ const config = require('./config')
 const db = require('./bbdd/db')(config.database)
 
 // Configs of Express
-app.use(morgan('dev'))
-app.use(express.json())
+app.use(morgan('dev'));
+app.use(express.json());
 app.use('/', router);
 
 // Require the diferent files of routes (of diferent entities)
