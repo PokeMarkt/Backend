@@ -1,5 +1,7 @@
 'use strict'
 
+const config = require('../config')
+
 module.exports = function(router, db) {
 
     router.get('/pokemons', function (req, res) {
@@ -19,8 +21,6 @@ module.exports = function(router, db) {
     });
 
     router.get('/pokemonImage/:numPokedex', function(req, res) {   
-
-		let path = 'D:\\Projects\\PokeMarkt\\Backend\\resources\\pokemonImages\\';
 		
 		let prefix = '';
 
@@ -30,10 +30,9 @@ module.exports = function(router, db) {
 			prefix = '0';
 		} 
 
-		path += prefix + req.params.numPokedex + '.jpg'
+		let path = config.paths.pokemonImagesFolder + prefix + req.params.numPokedex + '.jpg'
 
-        console.log(path);
-        res.sendFile(path)
+        res.sendFile(path)        
     });
 
     router.get('/pokedex/:numPokedex', function(req, res) {    

@@ -1,5 +1,4 @@
 'use strict'
-
 module.exports = {
 
     database: {
@@ -15,7 +14,7 @@ module.exports = {
         port: 80
     }, 
     paths: {
-        pokemonImagesFolder: '\\resources\\pokemonImages\\'
+        pokemonImagesFolder: __dirname + '\\resources\\pokemonImages\\'
     }
 
 }
