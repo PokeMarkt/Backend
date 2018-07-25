@@ -56,19 +56,6 @@ module.exports = function(config) {
     pokemonModel.hasMany(demandModel)
     pokemonModel.belongsTo(imageResourcesModel)
 
-    // Auth in bbdd
-    sequelize.authenticate()
-        .then(() => {
-            console.log(`${chalk.green('SEQUELIZE AUTHENTICATED!')}`)
-            if (config.recreate) {
-                sequelize.sync({ force: true })
-            }
-        })
-        .catch(() => {
-            console.log(`${chalk.red('SEQUELIZE NOT AUTHENTICATED!')}`)
-            process.exit(1)
-        })
-
     // Get the objects with the queries 
     const session = setupSession(sessionModel)
     const user = setupUser(userModel)
@@ -79,6 +66,24 @@ module.exports = function(config) {
     const demand = setupDemand(demandModel)
     const pokemon = setupPokemon(pokemonModel);
     const imageResource = setupImageResource(imageResourcesModel)
+
+    // Auth in bbdd
+    sequelize.authenticate()
+    .then(async () => {
+        console.log(`${chalk.green('SEQUELIZE AUTHENTICATED!')}`)
+        if (config.recreate) {
+            await sequelize.sync({ force: true })
+            
+            insertPokemons(pokemon, function() {
+                console.log('Pokemons Inserteds!')
+            })
+
+        }
+    })
+    .catch(() => {
+        console.log(`${chalk.red('SEQUELIZE NOT AUTHENTICATED!')}`)
+        process.exit(1)
+    })
 
     return {
         session, 
@@ -91,4 +96,34 @@ module.exports = function(config) {
         pokemon,
         imageResource
     }
+}
+
+function insertPokemons(pokemonDb, cb) {
+
+  const fs = require('fs');
+
+  fs.readFile('pokemons.json', 'utf8', function (err, data) {
+		if (err) throw err;
+			
+    let pokemons = JSON.parse(data);
+
+    pokemons.forEach((pokemon) => {
+        
+      let pokemonToSave = {
+				numPokedex: pokemon[1],
+				name: pokemon[2],
+				type: pokemon[3],
+				type2: pokemon[4],
+				form: 'normal'
+			}
+				
+			pokemonDb.create(pokemonToSave)
+				.then((result) => {
+					console.log('Inserted')
+				})
+				.catch(err => {
+					console.log(err)
+				})
+		});
+  });
 }

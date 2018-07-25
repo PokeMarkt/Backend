@@ -3,7 +3,7 @@
 module.exports = function(router, db) {
 
     router.get('/posts', function (req, res) {    
-
+        
     });
 
     router.get('/post/:id', function(req, res) {    

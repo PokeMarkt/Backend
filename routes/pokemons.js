@@ -6,10 +6,18 @@ module.exports = function(router, db) {
 
     router.get('/pokemons', function (req, res) {
 
-        db.pokemon.findAll()
-            .then((results => {
-                res.json(results)
-            }));
+        if (req.session.loged) {
+            db.pokemon.findAll()
+                .then((results => {
+                    res.json(results)
+                }));
+        } else {
+            res.json({
+                err: 'not loged'
+            })
+        }
+
+
     });
 
     router.get('/pokemon/:id', function(req, res) {    

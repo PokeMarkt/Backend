@@ -2,13 +2,13 @@
 module.exports = {
 
     database: {
-        database: '',
-        username: '',
-        password: '',
-        host: '',
+        database: 'POKEMON',
+        username: 'pok',
+        password: 'pok',
+        host: '192.168.1.123',
         dialect: 'mysql',
         operatorsAliases: false,
-        recreate: true
+        recreate: false
     },
     server: {
         port: 80

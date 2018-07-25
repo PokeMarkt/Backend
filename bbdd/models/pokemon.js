@@ -1,4 +1,4 @@
-'use strcit'
+'use strict'
 
 const Sequelize = require('sequelize')
 const setupDatabase = require('../singletonSequelize')
