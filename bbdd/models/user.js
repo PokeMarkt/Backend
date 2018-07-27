@@ -11,7 +11,8 @@ module.exports = function setupPokemonModel(config) {
     return sequelize.define('user', {
         nick: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         mail: {
             type: Sequelize.STRING,
@@ -36,6 +37,10 @@ module.exports = function setupPokemonModel(config) {
         permissionLevel: {
             type: Sequelize.INTEGER,
             allowNull: false
+        },
+        pokemonId: {
+            type: Sequelize.STRING,
+            allowNull: true
         }
     });
 } 
