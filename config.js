@@ -2,16 +2,16 @@
 module.exports = {
 
     database: {
-        database: 'POKEMON',
-        username: 'pok',
-        password: 'pok',
-        host: '192.168.1.123',
+        database: '',
+        username: '',
+        password: '',
+        host: '',
         dialect: 'mysql',
         operatorsAliases: false,
         recreate: false
     },
     server: {
-        port: 80
+        port: 3000
     }, 
     paths: {
         pokemonImagesFolder: __dirname + '\\resources\\pokemonImages\\'

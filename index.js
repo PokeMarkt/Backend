@@ -27,9 +27,12 @@ app.use(session({
 app.use('/', router);
 
 // Require the diferent files of routes (of diferent entities)
-require('./routes/pokemons')(router, db)
-require('./routes/posts')(router, db)
-require('./routes/users')(router, db)
+
+const normalizedPath = require("path").join(__dirname, "routes");
+
+require("fs").readdirSync(normalizedPath).forEach(function(file) {
+  require("./routes/" + file)(router, db)
+});
 
 // Starting the server
 app.listen(config.server.port, function() {
