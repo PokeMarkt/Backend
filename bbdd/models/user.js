@@ -16,7 +16,8 @@ module.exports = function setupPokemonModel(config) {
         },
         mail: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         password: {
             type: Sequelize.STRING,

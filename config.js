@@ -15,6 +15,12 @@ module.exports = {
     }, 
     paths: {
         pokemonImagesFolder: __dirname + '\\resources\\pokemonImages\\'
+    },
+    security: {
+        SECRET_TOKEN: 'asdfasdfadsf', // for jwt
+        passwordsHash: {
+            salt: 10
+        }
     }
 
 }

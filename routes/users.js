@@ -2,9 +2,9 @@
 
 const config = require('../config')
 
-const isemail = require('isemail')
-const PasswordValidator = require('password-validator')
 const bcrypt = require('bcrypt')
+
+const checker = require('../services/checker')
 
 module.exports = function(router, db) {
 
@@ -22,23 +22,41 @@ module.exports = function(router, db) {
             })
     })
 
-    router.post('/login', function(req, res){
+    router.post('/login', function(req, resp){
 
         let userToLogin = req.body
 
         if (userToLogin.nick) {
 
-            db.user.loginWithNick(userToLogin)
+            db.user.findByNick(userToLogin)
                 .then(result => {
                     if (result == null ) {
-                        res.json({
+                        resp.json({
                             auth: false
                         })
                     } else {
-                        res.json({
-                            auth: true
+
+                        bcrypt.compare(userToLogin.password, result.password, (err, res) => {
+
+                            if (err) {
+                                resp.json({
+                                    auth:false
+                                })
+                                return;
+                            }
+
+                            if (res) {
+                                req.session.user = result
+                                resp.json({
+                                    auth: true
+                                })
+                                return;
+                            }
+
+                            resp.json({
+                                auth: false
+                            })
                         })
-                        req.sesion.user = result
                     }
                 })
                 .catch(err => {
@@ -46,24 +64,42 @@ module.exports = function(router, db) {
                 })
 
         } else if (userToLogin.mail) {
-            db.user.loginWithMail(userToLogin)
+            db.user.findByMail(userToLogin)
                 .then(result => {
                     if (result == null ) {
-                        res.json({
+                        resp.json({
                             auth: false
                         })
                     } else {
-                        res.json({
-                            auth: true
+                        bcrypt.compare(userToLogin.password, result.password, (err, res) => {
+                            
+                            if (err) {
+                                resp.json({
+                                    auth:false
+                                })
+                                return;
+                            }
+
+                            if (res) {
+                                req.session.user = result
+                                resp.json({
+                                    auth: true
+                                })
+                                
+                                return;
+                            }
+
+                            resp.json({
+                                auth: false
+                            })
                         })
-                        req.sesion.user = result
                     }
                 })
                 .catch(err => {
                     console.log('ERROR: ' + err)
                 })
         } else {
-            res.json({
+            resp.json({
                 auth: false
             })
             req.session.destroy();
@@ -87,23 +123,7 @@ module.exports = function(router, db) {
 
         let user = req.body; // only with mail, nick and password
 
-        if (!isemail.validate(user.mail)) {
-            res.json({
-                done: false
-            })
-            return;
-        }
-
-        const passwordValidator = new PasswordValidator();
-
-        passwordValidator
-            .is().min(8)
-            .is().max(20)
-            .has().uppercase()
-            .has().lowercase()
-            .has().digits();
-
-        if (!passwordValidator.validate(user.password)) {
+        if (!checker.checkDataForRegister(user)) {
             res.json({
                 done: false
             })
@@ -140,14 +160,17 @@ module.exports = function(router, db) {
         })
     })
 
-    router.get('/aloha', function(req, res) {
+    router.get('/loged', function(req, res) {
+
+        console.log(req.session)
+
         if (req.session.user) {
             res.json({
-                loged: 'yes'
+                loged: true
             })
         } else {
             res.json({
-                loged: 'nope'
+                loged: false
             })
         }
     })

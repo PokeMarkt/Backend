@@ -22,23 +22,21 @@ module.exports = function setupUser(UserModel) {
         })
     }
 
-    function loginWithNick(userToLogin){
+    function findByNick(userToLogin){
 
         return UserModel.findOne({
             where: {
                 nick: userToLogin.nick,
-                password: userToLogin.password,
                 enabled: true
             }
         })
     }
 
-    function loginWithMail(userToLogin){
+    function findByMail(userToLogin){
 
         return UserModel.findOne({
             where: {
-                nick: userToLogin.mail,
-                password: userToLogin.password,
+                mail: userToLogin.mail,
                 enabled: true
             }
         })
@@ -49,7 +47,7 @@ module.exports = function setupUser(UserModel) {
         findById,
         create,
         remove,
-        loginWithNick,
-        loginWithMail
+        findByNick,
+        findByMail
     }
 }

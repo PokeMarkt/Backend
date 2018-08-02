@@ -6,7 +6,10 @@ const morgan = require('morgan')
 const express = require('express')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
+//const MemcachedStore = require('connect-memcached')(session);
+const FileStore = require('session-file-store')(session);
 
+const cors = require('cors')
 const app = express();
 const router = express.Router();
 
@@ -17,11 +20,14 @@ const db = require('./bbdd/db')(config.database)
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser())
+app.use(cors())
+
 app.use(session({
     secret: 'asdfasdfasdfasdfasdf',
-    cookie: {
-        user: {}
-    }
+    key: 'test',
+    resave: false,
+    store: new FileStore(),
+    saveUninitialized: false
 }))
 
 app.use('/', router);
