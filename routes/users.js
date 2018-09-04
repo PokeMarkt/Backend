@@ -2,11 +2,10 @@
 
 const config = require('../config')
 
-const bcrypt = require('bcrypt')
-
+const crypter = require('../services/crypter')
 const checker = require('../services/checker')
 
-module.exports = function(router, db) {
+module.exports = function (router, db) {
 
     router.get('/users', (req, res) => {
         db.user.findAll()
@@ -22,7 +21,7 @@ module.exports = function(router, db) {
             })
     })
 
-    router.post('/login', function(req, resp){
+    router.post('/login', function (req, resp) {
 
         let userToLogin = req.body
 
@@ -36,11 +35,11 @@ module.exports = function(router, db) {
                         })
                     } else {
 
-                        bcrypt.compare(userToLogin.password, result.password, (err, res) => {
+                        crypter.checkPassword(userToLogin.password, result.password, (err, res) => {
 
                             if (err) {
                                 resp.json({
-                                    auth:false
+                                    auth: false
                                 })
                                 return;
                             }
@@ -71,7 +70,7 @@ module.exports = function(router, db) {
                             auth: false
                         })
                     } else {
-                        bcrypt.compare(userToLogin.password, result.password, (err, res) => {
+                        crypter.checkPassword(userToLogin.password, result.password, (err, res) => {
                             
                             if (err) {
                                 resp.json({
@@ -130,7 +129,7 @@ module.exports = function(router, db) {
             return;
         }
         
-        bcrypt.hash(user.password, 10, (err, hash) => {
+        crypter.crypt(user.password, (err, hash) => {
 
             if (err) {
                 res.json({
@@ -182,3 +181,4 @@ module.exports = function(router, db) {
         })
     })
 }
+
